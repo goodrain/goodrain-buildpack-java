@@ -1,0 +1,5 @@
+http://lang.goodrain.me/java/apache-maven-3.0.5-bin.tar.gz
+http://lang.goodrain.me/java/apache-maven-3.1.1-bin.tar.gz
+http://lang.goodrain.me/java/apache-maven-3.2.3-bin.tar.gz
+http://lang.goodrain.me/java/apache-maven-3.2.5-bin.tar.gz
+http://lang.goodrain.me/java/apache-maven-3.3.1-bin.tar.gz
