@@ -1,39 +1,35 @@
-Heroku buildpack for Java [![Build Status](https://travis-ci.org/heroku/heroku-buildpack-java.svg)](https://travis-ci.org/heroku/heroku-buildpack-java)
+Rainbond buildpack for Java [![Build Status](https://travis-ci.org/heroku/heroku-buildpack-java.svg)](https://travis-ci.org/heroku/heroku-buildpack-java)
 =========================
 
-This is the official [Heroku buildpack](http://devcenter.heroku.com/articles/buildpack) for Java apps.
-It uses Maven 3.3.1 to build your application and OpenJDK 8 to run it. However, the JDK version can be configured as described below.
+云帮提供Java应用的buildpack是基于[Heroku buildpack](http://devcenter.heroku.com/articles/buildpack) for java，它提供更加稳定高效的构建功能。默认使用Maven3.3.1版本区构建您的应用，默认使用JDK运行应用。
 
-## How it works
+## 工作原理
 
-The buildpack will detect your app as Java if it has a `pom.xml` file in its root directory.  It will use Maven to execute the build defined by your `pom.xml` and download your dependencies. The `.m2` folder (local maven repository) will be cached between builds for faster dependency resolution. However neither the mvn executable or the .m2 folder will be available in your slug at runtime.
+当buildpack在您应用的根目录下检测到包含`pom.xml`文件，它会被识别为Java程序。buildpack会根据您的 `pom.xml`执行构建并且下载依赖。在构建期间为了更快解决依赖关系会将`.m2`目录(本地maven库)缓存。并且`mvn`与`.m2`在您的slug文件运行时都可以使用。
 
-## Documentation
+## 文档
 
-For more information about using Java and buildpacks on Heroku, see these Dev Center articles:
+以下文章了解更多：
 
-*  [Heroku Java Support](https://devcenter.heroku.com/articles/java-support)
-*  [Introduction to Heroku for Java Developers](https://devcenter.heroku.com/articles/intro-for-java-developers)
-*  [Deploying Tomcat-based Java Web Applications with Webapp Runner](https://devcenter.heroku.com/articles/java-webapp-runner)
-*  [Deploy a Java Web Application that launches with Jetty Runner](https://devcenter.heroku.com/articles/deploy-a-java-web-application-that-launches-with-jetty-runner)
-*  [Using a Custom Maven Settings File](https://devcenter.heroku.com/articles/using-a-custom-maven-settings-xml)
-*  [Using Grunt with Java and Maven to Automate JavaScript Tasks](https://devcenter.heroku.com/articles/using-grunt-with-java-and-maven-to-automate-javascript-tasks)
+- [云帮支持Java](https://www.rainbond.com/docs/stable/user-lang-docs/java/lang-java-overview.html)
+- [云帮部署maven应用](https://www.rainbond.com/docs/stable/user-lang-docs/java/lang-java-maven.html)
+- [云帮部署war包应用](https://www.rainbond.com/docs/stable/user-lang-docs/java/lang-java-war.html)
+- [云帮部署jar包应用](https://www.rainbond.com/docs/stable/user-lang-docs/java/lang-java-jar.html)
 
-## Configuration
+## 配置
 
-### Choose a JDK
+### 选择一个JDK
 
-Create a `system.properties` file in the root of your project directory and set `java.runtime.version=1.7`.
+在您应用的根目录创建 `system.properties` 文件设置`java.runtime.version=1.7`指定JDK版本：
 
-Example:
-
+```bash
     $ ls
     Procfile pom.xml src
-
+    
     $ echo "java.runtime.version=1.7" > system.properties
-
+    
     $ git add system.properties && git commit -m "Java 7"
-
+    
     $ git push heroku master
     ...
     -----> Heroku receiving push
@@ -41,72 +37,35 @@ Example:
     -----> Java app detected
     -----> Installing OpenJDK 1.7... done
     ...
-
-### Choose a Maven Version
-
-The `system.properties` file also allows for `maven.version` entry
-(regardless of whether you specify a `java.runtime.version` entry). For example:
-
 ```
+### 指定一个Maven
+
+在`system.properties` 文件中您也可以设置`maven.version`来指定maven版本：
+
+```bash
 java.runtime.version=1.7
 maven.version=3.1.1
 ```
 
-Supported versions of Maven include 3.0.5, 3.1.1, 3.2.5 and 3.3.1. You can request new
-versions of Maven by submitting a pull request against `vendor/maven/sources.txt`.
+支持的maven版本包括`3.0.5`、`3.1.1` 、`3.2.5`、`3.3.1`与 `3.3.9`。
 
-### Customize Maven
+### 自定义maven
 
-There are three config variables that can be used to customize the Maven execution:
+您可以通过指定如下三个变量自定义maven的使用：
 
-+ `MAVEN_CUSTOM_GOALS`: set to `clean install` by default
-+ `MAVEN_CUSTOM_OPTS`: set to `-DskipTests=true` by default
-+ `MAVEN_JAVA_OPTS`: set to `-Xmx1024m` by default
++ `MAVEN_CUSTOM_GOALS`: 默认值为 `clean install` 
++ `MAVEN_CUSTOM_OPTS`: 默认值为 `-DskipTests=true` 
++ `MAVEN_JAVA_OPTS`: 默认值为 `-Xmx1024m` 
 
-These variables can be set like this:
+设定方法如下：
 
-```sh-session
-$ heroku config:set MAVEN_CUSTOM_GOALS="clean package"
-$ heroku config:set MAVEN_CUSTOM_OPTS="--update-snapshots -DskipTests=true"
-$ heroku config:set MAVEN_JAVA_OPTS="-Xss2g"
+```bash
+$ rainbond config:set MAVEN_CUSTOM_GOALS="clean package"
+$ rainbond config:set MAVEN_CUSTOM_OPTS="--update-snapshots -DskipTests=true"
+$ rainbond config:set MAVEN_JAVA_OPTS="-Xss2g"
 ```
 
-Other options are available for [defining a custom `settings.xml` file](https://devcenter.heroku.com/articles/using-a-custom-maven-settings-xml).
-
-## Development
-
-To make changes to this buildpack, fork it on Github. Push up changes to your fork, then create a new Heroku app to test it, or configure an existing app to use your buildpack:
-
-```
-# Create a new Heroku app that uses your buildpack
-heroku create --buildpack <your-github-url>
-
-# Configure an existing Heroku app to use your buildpack
-heroku buildpacks:set <your-github-url>
-
-# You can also use a git branch!
-heroku buildpacks:set <your-github-url>#your-branch
-```
-
-For example if you want to have maven available to use at runtime in your application, you can copy it from the cache directory to the build directory by adding the following lines to the compile script:
-
-    for DIR in ".m2" ".maven" ; do
-      cp -r $CACHE_DIR/$DIR $BUILD_DIR/$DIR
-    done
-
-This will copy the local maven repo and maven binaries into your slug.
-
-Commit and push the changes to your buildpack to your Github fork, then push your sample app to Heroku to test. Once the push succeeds you should be able to run:
-
-    $ heroku run bash
-
-and then:
-
-    $ ls -al
-
-and you'll see the `.m2` and `.maven` directories are now present in your slug.
-
-License
+证书
 -------
 
-Licensed under the MIT License. See LICENSE file.
+获得《麻省理工学院许可证》(MIT)许可。
