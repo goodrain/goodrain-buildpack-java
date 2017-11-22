@@ -1,7 +1,7 @@
-Rainbond buildpack for Java [![Build Status](https://travis-ci.org/heroku/heroku-buildpack-java.svg)](https://travis-ci.org/heroku/heroku-buildpack-java)
+heroku buildpack for Java [![Build Status](https://travis-ci.org/heroku/heroku-buildpack-java.svg)](https://travis-ci.org/heroku/heroku-buildpack-java)
 =========================
 
-云帮提供Java应用的buildpack是基于[Heroku buildpack](http://devcenter.heroku.com/articles/buildpack) for java，它提供更加稳定高效的构建功能。默认使用Maven3.3.1版本区构建您的应用，默认使用JDK运行应用。
+云帮提供的Java语言源码构建是基于[Heroku buildpack for java](http://devcenter.heroku.com/articles/buildpack) 来实现的。通过OpenJDK 和 Maven 构建您的应用。
 
 ## 工作原理
 
