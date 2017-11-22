@@ -1,7 +1,7 @@
-heroku buildpack for Java [![Build Status](https://travis-ci.org/heroku/heroku-buildpack-java.svg)](https://travis-ci.org/heroku/heroku-buildpack-java)
+Heroku buildpack for Java [![Build Status](https://travis-ci.org/heroku/heroku-buildpack-java.svg)](https://travis-ci.org/heroku/heroku-buildpack-java)
 =========================
 
-云帮提供的Java语言源码构建是基于[Heroku buildpack for java](http://devcenter.heroku.com/articles/buildpack) 来实现的。通过OpenJDK 和 Maven 构建您的应用。
+云帮 Java 语言 Maven 项目的源码构建核心部分是基于[Heroku buildpack for java](http://devcenter.heroku.com/articles/buildpack) 来实现的。
 
 ## 工作原理
 
@@ -18,9 +18,9 @@ heroku buildpack for Java [![Build Status](https://travis-ci.org/heroku/heroku-b
 
 ## 配置
 
-### 选择一个JDK
+### 选择一个JDK版本
 
-在您应用的根目录创建 `system.properties` 文件设置`java.runtime.version=1.7`指定JDK版本：
+在您应用的根目录创建 `system.properties` 文件，设置`java.runtime.version=1.7`来指定JDK版本：
 
 ```bash
     $ ls
@@ -30,7 +30,7 @@ heroku buildpack for Java [![Build Status](https://travis-ci.org/heroku/heroku-b
     
     $ git add system.properties && git commit -m "Java 7"
     
-    $ git push heroku master
+    $ git push origin master
     ...
     -----> Heroku receiving push
     -----> Fetching custom language pack... done
@@ -38,7 +38,7 @@ heroku buildpack for Java [![Build Status](https://travis-ci.org/heroku/heroku-b
     -----> Installing OpenJDK 1.7... done
     ...
 ```
-### 指定一个Maven
+### 指定一个Maven版本
 
 在`system.properties` 文件中您也可以设置`maven.version`来指定maven版本：
 
@@ -51,21 +51,22 @@ maven.version=3.1.1
 
 ### 自定义maven
 
-您可以通过指定如下三个变量自定义maven的使用：
+您可以通过指定如下三个环境变量自定义maven的使用：
 
 + `MAVEN_CUSTOM_GOALS`: 默认值为 `clean install` 
 + `MAVEN_CUSTOM_OPTS`: 默认值为 `-DskipTests=true` 
 + `MAVEN_JAVA_OPTS`: 默认值为 `-Xmx1024m` 
 
+
 设定方法如下：
 
+[应用]-[设置]-[自定义环境变量] 添加如下变量
 ```bash
-$ rainbond config:set MAVEN_CUSTOM_GOALS="clean package"
-$ rainbond config:set MAVEN_CUSTOM_OPTS="--update-snapshots -DskipTests=true"
-$ rainbond config:set MAVEN_JAVA_OPTS="-Xss2g"
+MAVEN_CUSTOM_GOALS="clean package"
+MAVEN_CUSTOM_OPTS="--update-snapshots -DskipTests=true"
+set MAVEN_JAVA_OPTS="-Xss2g"
 ```
 
-证书
+授权
 -------
-
-获得《麻省理工学院许可证》(MIT)许可。
+根据 MIT 授权证获得许可。 请参阅LICENSE文件
