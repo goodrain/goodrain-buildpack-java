@@ -69,4 +69,4 @@ set MAVEN_JAVA_OPTS="-Xss2g"
 
 授权
 -------
-根据 MIT 授权证获得许可。 请参阅LICENSE文件
+根据 MIT 授权获得许可。 请参阅LICENSE文件
