@@ -1,7 +1,7 @@
 Heroku buildpack for Java [![Build Status](https://travis-ci.org/heroku/heroku-buildpack-java.svg)](https://travis-ci.org/heroku/heroku-buildpack-java)
 =========================
 
-云帮 Java 语言 Maven 项目的源码构建核心部分是基于[Heroku buildpack for java](http://devcenter.heroku.com/articles/buildpack) 来实现的。
+云帮 Java 语言 Maven 项目的源码构建核心部分是基于[Heroku buildpack for java](https://github.com/heroku/heroku-buildpack-java) 来实现的。
 
 ## 工作原理
 
