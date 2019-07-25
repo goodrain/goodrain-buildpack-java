@@ -5,7 +5,7 @@ Heroku buildpack for Java [![Build Status](https://travis-ci.org/heroku/heroku-b
 
 ## 工作原理
 
-当buildpack在您应用的根目录下检测到包含`pom.xml`文件，它会被识别为Java程序。buildpack会根据您的 `pom.xml`执行构建并且下载依赖。在构建期间为了更快解决依赖关系会将`.m2`目录(本地maven库)缓存。并且`mvn`与`.m2`在您的slug文件运行时都可以使用。
+当buildpack在您应用代码的根目录下检测到包含`pom.xml`文件，它会被识别为Java程序。buildpack会根据您的 `pom.xml`执行构建并且下载依赖。在构建期间为了更快解决依赖关系会将`.m2`目录(本地maven库)缓存。并且`mvn`与`.m2`在您的slug文件运行时都可以使用。
 
 ## 文档
 
@@ -13,8 +13,6 @@ Heroku buildpack for Java [![Build Status](https://travis-ci.org/heroku/heroku-b
 
 - [云帮支持Java](https://www.rainbond.com/docs/stable/user-lang-docs/java/lang-java-overview.html)
 - [云帮部署maven应用](https://www.rainbond.com/docs/stable/user-lang-docs/java/lang-java-maven.html)
-- [云帮部署war包应用](https://www.rainbond.com/docs/stable/user-lang-docs/java/lang-java-war.html)
-- [云帮部署jar包应用](https://www.rainbond.com/docs/stable/user-lang-docs/java/lang-java-jar.html)
 
 ## 配置
 
@@ -31,12 +29,6 @@ Heroku buildpack for Java [![Build Status](https://travis-ci.org/heroku/heroku-b
     $ git add system.properties && git commit -m "Java 7"
     
     $ git push origin master
-    ...
-    -----> Heroku receiving push
-    -----> Fetching custom language pack... done
-    -----> Java app detected
-    -----> Installing OpenJDK 1.7... done
-    ...
 ```
 ### 指定一个Maven版本
 
